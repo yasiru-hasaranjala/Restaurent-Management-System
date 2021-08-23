@@ -12,5 +12,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByCusid(long cusid);
 
 
-    List<Order> findByTitleContaining(String title);
+    List<Order> findByQuantityContaining(String quantity);
 }

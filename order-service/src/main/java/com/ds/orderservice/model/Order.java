@@ -21,20 +21,20 @@ public class Order {
     private long id;
 
     @Column(name = "cusid")
-    private long cusid;
+    private String cusid;
 
     @Column(name = "itemid")
-    private long itemid;
+    private String itemid;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "quantity")
+    private String quantity;
 
     @Column(name = "description")
     private String description;
 
 
-    @Column(name = "payment")
-    private boolean payment;
+    @Column(name = "amount")
+    private String amount;
 
     @Column(name = "supplied")
     private boolean supplied;
@@ -46,12 +46,12 @@ public class Order {
 
     }
 
-    public Order(long cusid,long itemid,String title, String description,boolean payment, boolean supplied,Timestamp orderedTime) {
+    public Order(String cusid,String itemid,String quantity, String description,String amount, boolean supplied,Timestamp orderedTime) {
         this.cusid=cusid;
         this.itemid=itemid;
-        this.title = title;
+        this.quantity = quantity;
         this.description = description;
-        this.payment = payment;
+        this.amount = amount;
         this.supplied = supplied;
         this.orderedTime = orderedTime.toString();
 
@@ -61,33 +61,33 @@ public class Order {
         return id;
     }
 
-    public long getCusid() {
+    public String getCusid() {
         return cusid;
     }
-    public void setCusid(long cusid) {
+    public void setCusid(String cusid) {
 
-
-        this.cusid = cusid;
+        if(cusid!=null){
+        this.cusid = cusid;}
     }
 
-    public long getItemId() {
+    public String getItemid() {
 
         return itemid;
     }
-    public void setItemid(long itemid) {
-
-        this.itemid = itemid;
+    public void setItemid(String itemid) {
+        if(itemid!=null){
+        this.itemid = itemid;}
     }
 
 
-    public String getTitle() {
+    public String getQuantity() {
 
-        return title;
+        return quantity;
     }
 
-    public void setTitle(String title) {
-
-        this.title = title;
+    public void setQuantity(String quantity) {
+        if(quantity!=null){
+        this.quantity = quantity;}
     }
 
     public String getDescription() {
@@ -104,13 +104,13 @@ public class Order {
 
 
 
-    public boolean isPayment() {
-        return payment;
+    public String getAmount() {
+        return amount;
     }
 
-    public void setPeyment(boolean isPayment) {
-
-        this.payment = isPayment;
+    public void setAmount(String amount) {
+        if(amount!=null){
+        this.amount = amount;}
     }
 
 
@@ -124,31 +124,18 @@ public class Order {
         this.supplied = isSupplied;
     }
 
-
-
-
-    public Timestamp getUpdateTime() throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateStr = df.format(new Date());
-        Date orderedDate = df.parse(dateStr);
-        return new java.sql.Timestamp(orderedDate.getTime());
+    public String getOrderedTime() {
+        return orderedTime;
     }
 
-
-
-    public void setOrderedTime() {
-        try {
-            Timestamp timestamp = getUpdateTime();
-
-        this.orderedTime = timestamp.toString();
-        } catch (Exception e) {
-
-        }
+    public void setOrderedTime(Timestamp orderedTime) {
+        this.orderedTime = orderedTime.toString();
     }
+
 
     @Override
     public String toString() {
-        return "Order [id=" + id + ",cusid= " + cusid + ",itemid= " + itemid + ",title=" + title + ", desc=" + description + ",payment=" + payment + ", supplied=" + supplied + ",order_time=" + orderedTime + "]";
+        return "Order [id=" + id + ",cusid= " + cusid + ",itemid= " + itemid + ",quantity=" + quantity + ", desc=" + description + ",amount=" + amount + ", supplied=" + supplied + ",order_time=" + orderedTime + "]";
     }
 
 
