@@ -1,0 +1,33 @@
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+export class Item{
+  constructor(
+    public id:number,
+    public name:string,
+    public description:string,
+    public price:number
+  ){}
+}
+@Component({
+  selector: 'app-view-orders',
+  templateUrl: './view-orders.component.html',
+  styleUrls: ['./view-orders.component.css']
+})
+export class ViewOrdersComponent implements OnInit {
+  Items :Item[]=[];
+  constructor(private httpClient:HttpClient) { 
+    this.Items=[];
+  }
+
+  ngOnInit(): void {
+  }
+  getFriend(){
+    let url = " ";
+    this.httpClient.get<any>(url).subscribe(
+      response =>{
+        this.Items = response;
+      }
+    );
+  }
+
+}
