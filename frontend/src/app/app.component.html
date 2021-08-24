@@ -1,9 +1,95 @@
-<mat-toolbar color="primary" class="app-header">
-  <div><a href="#" target="_blank" class="positronx">Demo</a></div>
-  <span class="nav-tool-items">
-    <a mat-button routerLink="signin" routerLinkActive="active">Signin</a>
-    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Signup</a>
-  </span>
-</mat-toolbar>
+<head>
+  ...
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
 
-<router-outlet></router-outlet>
+<div class="main-div" *ngFor="let items of items" >
+  <!-- <mat-toolbar color="primary">
+    <span>{{items.itemName}}</span>
+  </mat-toolbar> -->
+
+  <!-- <div class="content" layout="row" layout-wrap>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid" >
+      <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" > -->
+        <mat-card class="item-card">
+          <mat-card-header>
+            <mat-card-title>{{items.itemName}}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src={{items.imgUrl}}>
+          <mat-card-content>
+            <p>
+              {{items.description}}
+            </p>
+             
+              <ngb-rating [max]="5" [(rate)]="currentRating" [readonly]="true"></ngb-rating>
+              
+            
+          </mat-card-content>
+          <mat-card-actions>
+            <button class="btn btn-danger" (click)="triggerModal(orderModalData)">ORDER</button>
+            <button class="btn btn-danger" (click)="triggerModal(ratingModalData)" >RATE</button>
+          </mat-card-actions>
+        </mat-card>
+      <!-- </div>
+    </div>
+  </div> -->
+  
+</div>
+
+<ng-template #ratingModalData let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title_r">Ratings</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Rate this item for better customer service</p>
+    <ngb-rating [max]="5" [(rate)]="customerRating" [readonly]="false"> </ngb-rating>
+    <hr>
+    <pre>Rate: <b>{{customerRating}}</b></pre>
+    <label for="exampleInputDescripton">comments</label>
+    <input type="text" class="form-control" id="exampleInputDescription1" name="comment" [(ngModel)]="comment" placeholder="comments">
+    <br>
+    <button class="btn btn-danger" (click)="SubmiteRate()">SAVE</button>
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #orderModalData let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title_o">Put an Order</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <p>No of item</p> -->
+     
+      <label for="exampleInputDescripton">No of item</label>
+      <input type="text" class="form-control" id="exampleInputDescription1" placeholder="Enter No of Items" [(ngModel)]="number_of_items">
+    
+
+    <!-- <p>Location</p> -->
+    <label for="exampleInputDescripton">Location</label>
+    <input type="text" class="form-control" id="exampleInputDescription1" placeholder="Location" [(ngModel)]="location">
+
+    <!-- <p>Amount</p> -->
+    <label for="exampleInputDescripton">Amount : Rs 450.00</label>
+    <!-- <input type="text" class="form-control" id="exampleInputDescription1" placeholder="Amount"> -->
+    <br>
+    <button class="btn btn-danger" (click)="Confirm()">Confirm</button>
+  </div>
+  <div class="modal-footer">
+    <br>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
+    
+  </div>
+</ng-template>
+
+
+
